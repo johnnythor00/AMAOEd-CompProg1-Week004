@@ -5,7 +5,8 @@
             "name": "Mac",
             "includePath": [
                 "/usr/include",
-                "/usr/local/include"
+                "/usr/local/include",
+                "${workspaceFolder}"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -45,6 +46,21 @@
                 "databaseFilename": ""
             },
             "intelliSenseMode": "gcc-x64"
+        },
+        {
+            "name": "a",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "windows-gcc-x86"
         }
     ]
 }
