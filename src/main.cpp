@@ -30,22 +30,24 @@ using namespace std;
 
 
 int main() {
-    std::string name, password, address;
+    double numerator, denominator;
 
-    // Prompt the user to enter their name
-    std::cout << "Enter your name: ";
-    std::getline(std::cin, name);
+    // Prompt the user to enter the numerator and denominator
+    std::cout << "Enter the numerator: ";
+    std::cin >> numerator;
 
-    // Prompt the user to enter their password
-    std::cout << "Enter your password: ";
-    std::getline(std::cin, password);
+    std::cout << "Enter the denominator: ";
+    std::cin >> denominator;
 
-    // Prompt the user to enter their address
-    std::cout << "Enter your address: ";
-    std::getline(std::cin, address);
-
-    // Display the user's information with the specified format
-    std::cout << "Hi, I am " << name << ". I live at " << address << "." << std::endl;
+    // Check if the denominator is not zero
+    if (denominator != 0.0) {
+        // Perform the division and display the result
+        double result = numerator / denominator;
+        std::cout << "Result of division: " << result << std::endl;
+    } else {
+        // Handle division by zero
+        std::cout << "Error: Division by zero is not allowed." << std::endl;
+    }
 
     return 0;
 }
