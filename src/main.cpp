@@ -30,25 +30,88 @@ using namespace std;
 
 
 int main() {
-    double numerator, denominator;
 
-    // Prompt the user to enter the numerator and denominator
-    std::cout << "Enter the numerator: ";
-    std::cin >> numerator;
 
-    std::cout << "Enter the denominator: ";
-    std::cin >> denominator;
 
-    // Check if the denominator is not zero
-    if (denominator != 0.0) {
-        // Perform the division and display the result
-        double result = numerator / denominator;
-        std::cout << "Result of division: " << result << std::endl;
-    } else {
-        // Handle division by zero
-        std::cout << "Error: Division by zero is not allowed." << std::endl;
+    //User Information..
+
+
+    std:string studentName, programCourse, yearName;
+    int yearLevel;
+
+    double numberOfUnits, ratePerUnit, tuitionFee, downPayment, balance;
+
+
+    std::cout << "Student Name: ";
+    std::getline(std::cin, studentName);
+
+    std::cout << "Program/Course: ";
+    std::getline(std::cin, programCourse);
+
+    std::cout << "Year Level: ";
+    std::cin >> yearLevel;
+
+    std::cout << "No. of units Enrolled: ";
+    std::cin >> numberOfUnits;
+
+    
+
+    //Year name and rate per unit based on year level..
+
+    switch (yearLevel)
+    {
+    case 1:
+        yearName = "Freshman";
+        ratePerUnit = 1500;
+        break;
+
+    case 2:
+        yearName = "Sophomore";
+        ratePerUnit = 1800;
+        break;
+
+    case 3:
+        yearName = "Junior";
+        ratePerUnit = 2000;
+        break;
+    case 4:
+    case 5:
+        yearName = "Senior";
+        ratePerUnit = 2300;
+        break;
+
+
+    default:
+        break;
     }
 
-    return 0;
+
+
+// calcuation of tuition fee
+
+
+    tuitionFee = numberOfUnits * ratePerUnit;
+
+    downPayment = 0.3 * tuitionFee;
+
+    balance = tuitionFee - downPayment;
+
+
+//display user info
+
+std::cout << "\n\t\tENROLLMENT SLIP" << std::endl;
+
+std::cout << "Student Name: " << studentName << std::endl;
+std::cout << "Program Course: " << programCourse << std::endl;
+std::cout << "Year name: " << yearName << std::endl;
+std::cout << "No. of Units: " << numberOfUnits << std::endl;
+std::cout << "Tuition Fee: " << tuitionFee << std::endl;
+std::cout << "Down Payment: " << downPayment << std::endl;
+std::cout << "Balance: " << balance << std::endl;
+
+
+return 0;
+
+
 }
 
