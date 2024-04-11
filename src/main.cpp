@@ -1,7 +1,7 @@
 /* ****************************************************************
- * @author: <John Ira Inocencio>
- * @app name: <firstCode>
- * @app desc: <My first C++ code>
+ * @author: <your name here>
+ * @app name: <your application name here>
+ * @app desc: <describe the purpose of your application here>
  * @history:
  *  - <yyyy/mm/dd> | <name>
  *      -- <description>
@@ -28,25 +28,20 @@ using namespace std;
 // before this "main()" function.
 //////////////////////////////////////////////////////////////////
 
+
 int main() {
+    double dailyBudget;
 
-      std::cout << "H";
-    std::cout << "e";
-    std::cout << "l";
-    std::cout << "l";
-    std::cout << "o";
-    std::cout << std::endl;
-    
-    // Display "World" in another line
-    std::cout << "W";
-    std::cout << "o";
-    std::cout << "r";
-    std::cout << "l";
-    std::cout << "d";
-    std::cout << std::endl;
-    
+    // Prompt the user to enter their daily budget
+    std::cout << "Enter your daily budget: $";
+    std::cin >> dailyBudget;
+
+    // Calculate the product of the daily budget and itself
+    double product = dailyBudget * dailyBudget;
+    double userInput = dailyBudget;
+
+    // Display the result
+    std::cout << "Product of daily budget: $" << product << std::endl;
     return 0;
-   
-
-     
 }
+
