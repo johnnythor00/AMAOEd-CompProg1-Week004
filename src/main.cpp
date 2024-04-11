@@ -30,18 +30,23 @@ using namespace std;
 
 
 int main() {
-    double dailyBudget;
+    std::string name, password, address;
 
-    // Prompt the user to enter their daily budget
-    std::cout << "Enter your daily budget: $";
-    std::cin >> dailyBudget;
+    // Prompt the user to enter their name
+    std::cout << "Enter your name: ";
+    std::getline(std::cin, name);
 
-    // Calculate the product of the daily budget and itself
-    double product = dailyBudget * dailyBudget;
-    double userInput = dailyBudget;
+    // Prompt the user to enter their password
+    std::cout << "Enter your password: ";
+    std::getline(std::cin, password);
 
-    // Display the result
-    std::cout << "Product of daily budget: $" << product << std::endl;
+    // Prompt the user to enter their address
+    std::cout << "Enter your address: ";
+    std::getline(std::cin, address);
+
+    // Display the user's information with the specified format
+    std::cout << "Hi, I am " << name << ". I live at " << address << "." << std::endl;
+
     return 0;
 }
 
