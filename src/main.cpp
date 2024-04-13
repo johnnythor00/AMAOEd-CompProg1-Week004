@@ -17,6 +17,9 @@
 #include <cstdlib>
 #include <iostream>
 #include "_pause.h"
+#include <string>
+#include <iomanip>
+
 
 using namespace std;
 
@@ -28,137 +31,104 @@ using namespace std;
 // before this "main()" function.
 /////////
 
-
-// Person class from the previous exercise
-
-class Person {
+class Payslip {
 private:
     std::string name;
-    std::string address;
-    char gender;
-    int age;
-    std::string occupation;
-
-public:
-    Person(const std::string& n, const std::string& addr, char gen, int a, const std::string& occ)
-        : name(n), address(addr), gender(gen), age(a), occupation(occ) {}
-
-    // Getters
-    std::string getName() const {
-        return name;
-    }
-
-    std::string getAddress() const {
-        return address;
-    }
-
-    char getGender() const {
-        return gender;
-    }
-
-    int getAge() const {
-        return age;
-    }
-
-    std::string getOccupation() const {
-        return occupation;
-    }
-
-    // Setters
-    void setName(const std::string& n) {
-        name = n;
-    }
-
-    void setAddress(const std::string& addr) {
-        address = addr;
-    }
-
-    void setGender(char gen) {
-        gender = gen;
-    }
-
-    void setAge(int a) {
-        age = a;
-    }
-
-    void setOccupation(const std::string& occ) {
-        occupation = occ;
-    }
-
-    void display() const {
-        std::cout << "Name: " << name << std::endl;
-        std::cout << "Address: " << address << std::endl;
-        std::cout << "Gender: " << gender << std::endl;
-        std::cout << "Age: " << age << std::endl;
-        std::cout << "Occupation: " << occupation << std::endl;
-    }
-};
-
-// Student class extending Person
-class Student : public Person {
-private:
-    std::string academicProgram;
-    int yearInCollege;
-    std::string enrolledUniversity;
+    char payGrade;
+    double basicSalary;
+    int overtimeHours;
+    double overtimePay;
+    double grossPay;
+    double withholdingTax;
+    double netPay;
 
 public:
     // Constructor
-    Student(const std::string& n, const std::string& addr, char gen, int a, const std::string& occ,
-            const std::string& program, int year, const std::string& university)
-        : Person(n, addr, gen, a, occ), academicProgram(program), yearInCollege(year), enrolledUniversity(university) {}
+    Payslip(const std::string& n, double salary, int otHours)
+        : name(n), basicSalary(salary), overtimeHours(otHours) {}
 
-    // Getters using accessors
-    std::string getAcademicProgram() const {
-        return academicProgram;
+    // Accessors
+    std::string getName() const { return name; }
+    char getPayGrade() const { return payGrade; }
+    double getBasicSalary() const { return basicSalary; }
+    int getOvertimeHours() const { return overtimeHours; }
+    double getOvertimePay() const { return overtimePay; }
+    double getGrossPay() const { return grossPay; }
+    double getWithholdingTax() const { return withholdingTax; }
+    double getNetPay() const { return netPay; }
+
+    // Mutators
+    void setName(const std::string& n) { name = n; }
+    void setBasicSalary(double salary) { basicSalary = salary; }
+    void setOvertimeHours(int otHours) { overtimeHours = otHours; }
+
+    void determinePayGradeAndTaxRate() {
+        if (basicSalary >= 50000) {
+            payGrade = 'B';
+            withholdingTax = grossPay * 0.30;
+        } else {
+            payGrade = 'A';
+            if (basicSalary >= 40000) withholdingTax = grossPay * 0.25;
+            else if (basicSalary >= 30000) withholdingTax = grossPay * 0.20;
+            else if (basicSalary >= 20000) withholdingTax = grossPay * 0.15;
+            else withholdingTax = grossPay * 0.10;
+        }
     }
 
-    int getYearInCollege() const {
-        return yearInCollege;
-    }
-
-    std::string getEnrolledUniversity() const {
-        return enrolledUniversity;
-    }
-
-    // Setters using mutators
-    void setAcademicProgram(const std::string& program) {
-        academicProgram = program;
-    }
-
-    void setYearInCollege(int year) {
-        yearInCollege = year;
-    }
-
-    void setEnrolledUniversity(const std::string& university) {
-        enrolledUniversity = university;
-    }
-
-    // Display all properties
-    void display() const {
-        // Display properties from Person class
-        Person::display();
-
-        std::cout << "Academic Program: " << academicProgram << std::endl;
-        std::cout << "Year in College: " << yearInCollege << std::endl;
-        std::cout << "Enrolled University: " << enrolledUniversity << std::endl;
+    void computePay() {
+        overtimePay = overtimeHours * 0.01 * basicSalary;
+        grossPay = basicSalary + overtimePay;
+        withholdingTax = grossPay * 0.10;  // Default tax rate for payGrade A
+        determinePayGradeAndTaxRate();
+        double fixedDeductions = 500.00 + 200.00 + 100.00;
+        netPay = grossPay - withholdingTax - fixedDeductions;
     }
 };
 
 int main() {
-    // Instantiate a Student object
-    Student myStudent("Alice", "456 College Ave", 'F', 20, "Student", "Computer Science", 2, "XYZ University");
+    std::string name;
+    double basicSalary;
+    int overtimeHours;
 
-    // Set values of Student properties using mutators
-    myStudent.setAcademicProgram("Electrical Engineering");
-    myStudent.setYearInCollege(3);
-    myStudent.setEnrolledUniversity("ABC University");
+    // Input employee details with validation
+    std::cout << "Enter Employee Name: ";
+    std::getline(std::cin >> std::ws, name);
 
-    // Display all properties of the Student object using accessors
-    std::cout << "Student information:" << std::endl;
-    myStudent.display();
+    while (true) {
+        std::cout << "Enter Basic Salary (>= 10,000): Php ";
+        std::cin >> basicSalary;
+        if (basicSalary >= 10000) break;
+        std::cout << "Invalid input! Basic Salary should be at least 10,000." << std::endl;
+    }
+
+    while (true) {
+        std::cout << "Enter Number of OT Hours (>= 1): ";
+        std::cin >> overtimeHours;
+        if (overtimeHours >= 1) break;
+        std::cout << "Invalid input! Minimum OT Hours is 1." << std::endl;
+    }
+
+    // Create Payslip object
+    Payslip employee(name, basicSalary, overtimeHours);
+
+    // Compute payslip
+    employee.computePay();
+
+    // Output payslip details
+    std::cout << "\nEmployee Name       : " << employee.getName() << std::endl;
+    std::cout << "Basic Salary        : Php " << std::fixed << std::setprecision(2) << std::setw(10) << std::right << employee.getBasicSalary() << std::endl;
+    std::cout << "Pay Grade           : " << employee.getPayGrade() << std::endl;
+    std::cout << "No. of OT Hours     : " << employee.getOvertimeHours() << std::endl;
+    std::cout << "OT Pay              : Php " << employee.getOvertimePay() << std::endl;
+    std::cout << "Gross Pay           : Php " << employee.getGrossPay() << std::endl;
+    std::cout << "Withholding Tax     : Php " << employee.getWithholdingTax() << std::endl;
+    std::cout << "Net Pay             : Php " << employee.getNetPay() << std::endl;
 
     return 0;
 }
+
+
+
 
 
 
