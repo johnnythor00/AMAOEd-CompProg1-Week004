@@ -28,98 +28,34 @@ using namespace std;
 // before this "main()" function.
 /////////
 
-//7 columns 5 rows
 
-
-const int ROWS= 5;
-const int COLUMNS= 7;
-
-
-
-//functions
-
-void displaySeats(int seats[][COLUMNS]) {
-    for (int i = 0; i < ROWS; ++i) {
-        for (int j = 0; j < COLUMNS; ++j) {
-            cout << seats[i][j] << "\t";
-        }
-        cout << endl;
-    }
-}
-
-
-bool isValidSeat(int seatNum) {
-
-    return seatNum >= 1 && seatNum <= ROWS * COLUMNS;
-}
-
-void reserveSeat(int seats[][COLUMNS], int seatNum) {
-
-    int row = (seatNum - 1) / COLUMNS;
-    int col = (seatNum - 1) % COLUMNS;
-
-
-
-    if (seats[row][col] == 0)
-    {
-        cout << "Seat is already taken" << endl;
-
+// Function to generate the nth Fibonacci number
+int fibonacci(int n) {
+    if (n <= 1) {
+        return n;
     } else {
-        seats[row][col] = 0;
-        cout << "Seat succesfully reserved." << endl;
-
+        int a = 0, b = 1, temp;
+        for (int i = 2; i <= n; ++i) {
+            temp = b;
+            b = a + b;
+            a = temp;
+        }
+        return b;
     }
-
 }
-
 
 int main() {
+    int n;
 
-int seats[ROWS][COLUMNS];
-int seatNum;
+    // Getting input from the user
+    std::cout << "Enter the value of n to find the nth Fibonacci number: ";
+    std::cin >> n;
 
-int count = 1;
+    // Displaying the nth Fibonacci number
+    std::cout << "The " << n << "th Fibonacci number is: " << fibonacci(n) << std::endl;
 
-for (int i = 0; i < ROWS; i++)
-{
-    for (int j = 0; j < COLUMNS; j++)
-    {
-        seats[i][j] = count++;
-    }
+    return 0;
 }
-
-displaySeats(seats);
-
-
-
-//reserve
-
-
-while (true)
-{
-    cout << "Enter seat number to reserve:"; 
-    cin >> seatNum;
-
-
-if (!isValidSeat(seatNum))
-{
-    cout << "Invalid seat number. Please enter a valid seat number." << endl;
-    continue;
-}
-
-
-reserveSeat(seats, seatNum);
-displaySeats(seats);
-
-    }
-
-return 0;
-
-
-}
-
-
-
 
 
 
