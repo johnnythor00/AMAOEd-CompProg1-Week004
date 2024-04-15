@@ -17,8 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "_pause.h"
-#include <string>
-#include <iomanip>
+#include <limits>
 
 
 using namespace std;
@@ -31,107 +30,115 @@ using namespace std;
 // before this "main()" function.
 /////////
 
-class Payslip {
-private:
-    std::string name;
-    char payGrade;
-    double basicSalary;
-    int overtimeHours;
-    double overtimePay;
-    double grossPay;
-    double withholdingTax;
-    double netPay;
 
-public:
-    // Constructor
-    Payslip(const std::string& n, double salary, int otHours)
-        : name(n), basicSalary(salary), overtimeHours(otHours) {}
-
-    // Accessors
-    std::string getName() const { return name; }
-    char getPayGrade() const { return payGrade; }
-    double getBasicSalary() const { return basicSalary; }
-    int getOvertimeHours() const { return overtimeHours; }
-    double getOvertimePay() const { return overtimePay; }
-    double getGrossPay() const { return grossPay; }
-    double getWithholdingTax() const { return withholdingTax; }
-    double getNetPay() const { return netPay; }
-
-    // Mutators
-    void setName(const std::string& n) { name = n; }
-    void setBasicSalary(double salary) { basicSalary = salary; }
-    void setOvertimeHours(int otHours) { overtimeHours = otHours; }
-
-    void determinePayGradeAndTaxRate() {
-        if (basicSalary >= 50000) {
-            payGrade = 'B';
-            withholdingTax = grossPay * 0.30;
-        } else {
-            payGrade = 'A';
-            if (basicSalary >= 40000) withholdingTax = grossPay * 0.25;
-            else if (basicSalary >= 30000) withholdingTax = grossPay * 0.20;
-            else if (basicSalary >= 20000) withholdingTax = grossPay * 0.15;
-            else withholdingTax = grossPay * 0.10;
-        }
-    }
-
-    void computePay() {
-        overtimePay = overtimeHours * 0.01 * basicSalary;
-        grossPay = basicSalary + overtimePay;
-        withholdingTax = grossPay * 0.10;  // Default tax rate for payGrade A
-        determinePayGradeAndTaxRate();
-        double fixedDeductions = 500.00 + 200.00 + 100.00;
-        netPay = grossPay - withholdingTax - fixedDeductions;
-    }
-};
 
 int main() {
-    std::string name;
-    double basicSalary;
-    int overtimeHours;
+    std::string customerName;
+    int age;
+    int numGuests;
+    double numDays;
 
-    // Input employee details with validation
-    std::cout << "Enter Employee Name: ";
-    std::getline(std::cin >> std::ws, name);
+    // Get customer name
+    std::cout << "Customer Name: ";
+    std::getline(std::cin, customerName);
 
-    while (true) {
-        std::cout << "Enter Basic Salary (>= 10,000): Php ";
-        std::cin >> basicSalary;
-        if (basicSalary >= 10000) break;
-        std::cout << "Invalid input! Basic Salary should be at least 10,000." << std::endl;
+
+while (true)
+{
+    std::cout <<"Age: ";
+    std::cin >> age;
+
+    if (age>=18) 
+    {
+        break;
+
+    }else
+    {
+        std::cout << "Error: Age should be 18 and above." << std::endl;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+    
+}
 
-    while (true) {
-        std::cout << "Enter Number of OT Hours (>= 1): ";
-        std::cin >> overtimeHours;
-        if (overtimeHours >= 1) break;
-        std::cout << "Invalid input! Minimum OT Hours is 1." << std::endl;
+while (true)
+{
+    std::cout << "Number of guests: ";
+    std::cin >> numGuests;
+
+
+    if (numGuests >= 1)
+    {
+        break;
+    }else
+        std::cout << "Error: Number of guests should 1 and above." << std::endl;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+     
 
-    // Create Payslip object
-    Payslip employee(name, basicSalary, overtimeHours);
 
-    // Compute payslip
-    employee.computePay();
+while (true) {
+        std::cout << "Number of days: ";
+        std::cin >> numDays;
 
-    // Output payslip details
-    std::cout << "\nEmployee Name       : " << employee.getName() << std::endl;
-    std::cout << "Basic Salary        : Php " << std::fixed << std::setprecision(2) << std::setw(10) << std::right << employee.getBasicSalary() << std::endl;
-    std::cout << "Pay Grade           : " << employee.getPayGrade() << std::endl;
-    std::cout << "No. of OT Hours     : " << employee.getOvertimeHours() << std::endl;
-    std::cout << "OT Pay              : Php " << employee.getOvertimePay() << std::endl;
-    std::cout << "Gross Pay           : Php " << employee.getGrossPay() << std::endl;
-    std::cout << "Withholding Tax     : Php " << employee.getWithholdingTax() << std::endl;
-    std::cout << "Net Pay             : Php " << employee.getNetPay() << std::endl;
-
-    return 0;
+        if (numDays > 0) {
+            break;
+        } else {
+            std::cout << "Error: Number of days should be greater than 0." << std::endl;
+            // Clear input buffer
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 }
 
 
+double ratePerDay;
+if (numGuests == 1)
+{
+    ratePerDay = 1000;
+} else if (numGuests == 2)
+{
+    ratePerDay = 1800;
+} else if (numGuests == 3)
+{
+    ratePerDay = 2700;
+} else if (numGuests == 4)
+{
+    ratePerDay = 3600;
+} else {
+
+    ratePerDay = 4500;
+}
+
+
+//compute
+
+double totalPayment = ratePerDay * numDays;
+double downPayment = 0.4 * totalPayment;
+double balance = totalPayment - downPayment;
 
 
 
 
+//display output
+
+std::cout << "\n\t\tHotel Reservation Slip" << std::endl;
+std::cout << "Customer Name\t: " << customerName << std::endl;
+std::cout << "Age\t\t: " << age << std::endl;
+std::cout << "Number of guest\t: " << numGuests << std::endl;
+std:cout << "Number of days\t: " << numDays << std::endl;
+std::cout << "Total Payment\t: " << totalPayment << std::endl;
+std::cout << "Down Payment \t: " << downPayment << std::endl;
+std::cout << "Balance\t\t: " << balance << std::endl;
+
+
+
+
+    return 0;
+}
 
 
 
